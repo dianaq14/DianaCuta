@@ -12,15 +12,14 @@
     <style>
         :root {
             --primary: #0a0a0a;
-            --accent: #00d4ff;
-            --accent-secondary: #7c3aed;
+            --accent: #22d3ee;
             --text-primary: #ffffff;
             --text-secondary: #a1a1aa;
         }
         
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #0a0a0a;
+            background-color: #050505;
             color: #ffffff;
             overflow-x: hidden;
         }
@@ -37,13 +36,13 @@
             height: 100%;
             pointer-events: none;
             z-index: 50;
-            opacity: 0.02;
+            opacity: 0.015;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
         }
         
         .hero-text {
-            font-size: clamp(2.5rem, 8vw, 6rem);
-            line-height: 1;
+            font-size: clamp(2.5rem, 8vw, 5.5rem);
+            line-height: 1.1;
             letter-spacing: -0.02em;
         }
         
@@ -58,26 +57,24 @@
             transform: translateY(0);
         }
         
-        .magnetic-btn {
-            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        .text-accent {
+            color: #22d3ee;
         }
         
-        .text-gradient {
-            background: linear-gradient(135deg, #00d4ff 0%, #7c3aed 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
         .glass {
-            background: rgba(255, 255, 255, 0.03);
+            background: rgba(255, 255, 255, 0.02);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
+        .glass-hover:hover {
+            background: rgba(255, 255, 255, 0.04);
+            border-color: rgba(34, 211, 238, 0.2);
+        }
+
         .timeline-line {
-            background: linear-gradient(to bottom, transparent, #00d4ff, transparent);
+            background: linear-gradient(to bottom, transparent, #22d3ee, transparent);
         }
 
         /* WhatsApp Float Button */
@@ -103,7 +100,7 @@
         .custom-cursor {
             width: 20px;
             height: 20px;
-            border: 2px solid #00d4ff;
+            border: 2px solid #22d3ee;
             border-radius: 50%;
             position: fixed;
             pointer-events: none;
@@ -114,7 +111,7 @@
 
         .cursor-hover {
             transform: scale(2.5);
-            background: rgba(0, 212, 255, 0.1);
+            background: rgba(34, 211, 238, 0.1);
         }
 
         @keyframes float {
@@ -127,19 +124,46 @@
         }
 
         .skill-tag {
-            background: rgba(0, 212, 255, 0.1);
-            border: 1px solid rgba(0, 212, 255, 0.2);
+            background: rgba(34, 211, 238, 0.08);
+            border: 1px solid rgba(34, 211, 238, 0.15);
             transition: all 0.3s ease;
+            color: #22d3ee;
         }
 
         .skill-tag:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 40px -10px rgba(0, 212, 255, 0.3);
-            border-color: rgba(0, 212, 255, 0.5);
+            background: rgba(34, 211, 238, 0.15);
+            border-color: rgba(34, 211, 238, 0.4);
+            box-shadow: 0 10px 40px -10px rgba(34, 211, 238, 0.2);
+        }
+
+        .cert-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .cert-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.04);
+            border-color: rgba(34, 211, 238, 0.2);
+        }
+
+        .cert-logo {
+            transition: transform 0.3s ease;
+        }
+
+        .cert-card:hover .cert-logo {
+            transform: scale(1.05);
+        }
+
+        .profile-image {
+            object-position: center 20%;
+            filter: contrast(1.05) saturate(1.1);
         }
     </style>
 </head>
-<body class="antialiased bg-[#0a0a0a] text-white">
+<body class="antialiased bg-[#050505] text-white">
     <div class="grain"></div>
     <div class="custom-cursor hidden md:block" id="cursor"></div>
 
@@ -148,13 +172,13 @@
        target="_blank" 
        class="whatsapp-float cursor-hover-trigger bg-green-500 text-white p-4 rounded-full shadow-2xl flex items-center justify-center w-16 h-16 hover:bg-green-600 transition-all duration-300 group">
         <i data-lucide="message-circle" class="w-8 h-8 fill-current"></i>
-        <span class="absolute right-full mr-4 bg-[#1a1a1a] text-white px-4 py-2 rounded-lg text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap pointer-events-none border border-white/10">
+        <span class="absolute right-full mr-4 bg-[#0a0a0a] text-white px-4 py-2 rounded-lg text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap pointer-events-none border border-white/10">
             ¡Hablemos por WhatsApp!
         </span>
     </a>
 
     <!-- Navigation -->
-    <nav class="fixed top-0 w-full z-40 bg-[#0a0a0a]/80 backdrop-blur-md border-b border-white/5 transition-all duration-300" id="navbar">
+    <nav class="fixed top-0 w-full z-40 bg-[#050505]/80 backdrop-blur-md border-b border-white/5 transition-all duration-300" id="navbar">
         <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
             <div class="text-2xl font-bold tracking-tighter" style="font-family: 'Playfair Display', serif;">
                 DMCB<span class="text-cyan-400">.</span>
@@ -162,6 +186,7 @@
             <div class="hidden md:flex space-x-8 text-sm font-medium text-gray-400">
                 <a href="#about" class="hover:text-cyan-400 transition-colors cursor-hover-trigger">Sobre mí</a>
                 <a href="#experience" class="hover:text-cyan-400 transition-colors cursor-hover-trigger">Experiencia</a>
+                <a href="#certifications" class="hover:text-cyan-400 transition-colors cursor-hover-trigger">Certificaciones</a>
                 <a href="#education" class="hover:text-cyan-400 transition-colors cursor-hover-trigger">Educación</a>
                 <a href="#skills" class="hover:text-cyan-400 transition-colors cursor-hover-trigger">Habilidades</a>
                 <a href="#contact" class="hover:text-cyan-400 transition-colors cursor-hover-trigger">Contacto</a>
@@ -175,6 +200,7 @@
             <div class="flex flex-col p-6 space-y-4">
                 <a href="#about" class="text-lg font-medium text-gray-300" onclick="toggleMenu()">Sobre mí</a>
                 <a href="#experience" class="text-lg font-medium text-gray-300" onclick="toggleMenu()">Experiencia</a>
+                <a href="#certifications" class="text-lg font-medium text-gray-300" onclick="toggleMenu()">Certificaciones</a>
                 <a href="#education" class="text-lg font-medium text-gray-300" onclick="toggleMenu()">Educación</a>
                 <a href="#skills" class="text-lg font-medium text-gray-300" onclick="toggleMenu()">Habilidades</a>
                 <a href="#contact" class="text-lg font-medium text-gray-300" onclick="toggleMenu()">Contacto</a>
@@ -183,50 +209,37 @@
     </nav>
 
     <!-- Hero Section -->
-    <section class="min-h-screen flex items-center justify-center relative overflow-hidden pt-20 bg-[#0a0a0a]">
-        <div class="absolute inset-0 bg-gradient-to-br from-cyan-500/5 via-purple-500/5 to-blue-500/5 opacity-50"></div>
-        <div class="absolute top-20 right-10 w-72 h-72 bg-cyan-500/20 rounded-full mix-blend-screen filter blur-3xl opacity-30 floating"></div>
-        <div class="absolute bottom-20 left-10 w-72 h-72 bg-purple-500/20 rounded-full mix-blend-screen filter blur-3xl opacity-30 floating" style="animation-delay: 2s;"></div>
+    <section class="min-h-screen flex items-center justify-center relative overflow-hidden pt-20 bg-[#050505]">
+        <div class="absolute inset-0 bg-gradient-to-br from-cyan-500/5 via-transparent to-purple-500/5 opacity-30"></div>
+        <div class="absolute top-20 right-10 w-96 h-96 bg-cyan-500/10 rounded-full mix-blend-screen filter blur-3xl opacity-20 floating"></div>
+        <div class="absolute bottom-20 left-10 w-96 h-96 bg-purple-500/10 rounded-full mix-blend-screen filter blur-3xl opacity-20 floating" style="animation-delay: 2s;"></div>
         
-        <div class="max-w-7xl mx-auto px-6 relative z-10 grid md:grid-cols-2 gap-12 items-center">
+        <div class="max-w-7xl mx-auto px-6 relative z-10 grid md:grid-cols-2 gap-16 items-center">
             <div class="reveal">
                 <p class="text-cyan-400 font-medium mb-4 tracking-widest uppercase text-sm">AI Trainer | Data Analyst Jr | Economista</p>
-                <h1 class="hero-text font-bold mb-6">
+                <h1 class="hero-text font-bold mb-6 text-white">
                     Diana Marcela<br>
-                    <span class="text-gradient">Cuta Barrera</span>
+                    <span class="text-accent">Cuta Barrera</span>
                 </h1>
                 <p class="text-xl text-gray-400 mb-8 leading-relaxed max-w-lg">
                     Profesional híbrida con combinación única de habilidades técnicas y de negocio. Especializada en entrenamiento de IA, análisis de datos (SQL, Python, Power BI) y atención al cliente.
                 </p>
-                <div class="flex flex-wrap gap-4 mb-8">
-                    <a href="https://wa.me/573208705752?text=Hola%20Diana,%20vi%20tu%20portfolio" target="_blank" class="magnetic-btn cursor-hover-trigger inline-flex items-center px-8 py-4 bg-green-500 text-white rounded-full font-bold hover:bg-green-600 transition-all duration-300 shadow-lg shadow-green-500/25">
-                        <i data-lucide="message-circle" class="mr-2 w-5 h-5 fill-current"></i>
-                        WhatsApp
-                    </a>
-                    <a href="mailto:dianacuta14@gmail.com" class="magnetic-btn cursor-hover-trigger inline-flex items-center px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-full font-bold hover:shadow-lg hover:shadow-cyan-500/25 transition-all duration-300">
-                        <i data-lucide="mail" class="mr-2 w-5 h-5"></i>
-                        Email
-                    </a>
-                </div>
-                <div class="flex items-center gap-4 text-sm text-gray-500">
-                    <span class="flex items-center gap-2"><i data-lucide="map-pin" class="w-4 h-4"></i> Colombia</span>
-                    <span class="flex items-center gap-2"><i data-lucide="globe" class="w-4 h-4"></i> Remote Work</span>
+                <div class="flex items-center gap-6 text-sm text-gray-500">
+                    <span class="flex items-center gap-2"><i data-lucide="map-pin" class="w-4 h-4 text-cyan-400"></i> Colombia</span>
+                    <span class="flex items-center gap-2"><i data-lucide="globe" class="w-4 h-4 text-cyan-400"></i> Remote Work</span>
                 </div>
             </div>
             <div class="relative reveal" style="transition-delay: 0.2s;">
                 <div class="relative w-full aspect-square max-w-md mx-auto">
-                    <div class="absolute inset-0 bg-gradient-to-br from-cyan-500 to-purple-600 rounded-3xl rotate-6 opacity-30 blur-sm"></div>
-                    <div class="absolute inset-0 bg-gradient-to-br from-purple-600 to-cyan-500 rounded-3xl -rotate-3 opacity-20 blur-sm"></div>
-                    <div class="relative w-full h-full bg-[#1a1a1a] rounded-3xl shadow-2xl border border-white/10 flex items-center justify-center">
-                        <div class="text-center">
-                            <i data-lucide="user" class="w-32 h-32 text-gray-700 mx-auto mb-4"></i>
-                            <p class="text-gray-500">Foto de perfil</p>
-                        </div>
-                    </div>
+                    <div class="absolute inset-0 bg-cyan-500/20 rounded-3xl rotate-6 blur-2xl"></div>
+                    <div class="absolute inset-0 bg-purple-500/20 rounded-3xl -rotate-3 blur-2xl"></div>
+                    <img src="Imagenes/dc.jpeg" 
+                         alt="Diana Cuta" 
+                         class="profile-image relative w-full h-full object-cover rounded-3xl shadow-2xl border border-white/10">
                     <div class="absolute -bottom-6 -right-6 glass p-6 rounded-2xl shadow-2xl cursor-hover-trigger">
                         <div class="flex items-center gap-3">
-                            <div class="w-12 h-12 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-full flex items-center justify-center">
-                                <i data-lucide="briefcase" class="w-6 h-6 text-white"></i>
+                            <div class="w-12 h-12 bg-cyan-400 rounded-full flex items-center justify-center">
+                                <i data-lucide="briefcase" class="w-6 h-6 text-black"></i>
                             </div>
                             <div>
                                 <p class="text-sm text-gray-400">Experiencia</p>
@@ -240,12 +253,12 @@
     </section>
 
     <!-- About Section -->
-    <section id="about" class="py-32 bg-[#0f0f0f] relative">
+    <section id="about" class="py-32 bg-[#0a0a0a] relative">
         <div class="max-w-7xl mx-auto px-6">
             <div class="grid md:grid-cols-12 gap-12">
                 <div class="md:col-span-4 reveal">
-                    <h2 class="text-4xl md:text-5xl font-bold mb-6 text-white">Sobre<br><span class="text-gradient">mí</span></h2>
-                    <div class="w-20 h-1 bg-gradient-to-r from-cyan-500 to-purple-600 mb-8"></div>
+                    <h2 class="text-4xl md:text-5xl font-bold mb-6 text-white">Sobre<br><span class="text-accent">mí</span></h2>
+                    <div class="w-20 h-1 bg-cyan-400 mb-8"></div>
                 </div>
                 <div class="md:col-span-8 reveal" style="transition-delay: 0.2s;">
                     <p class="text-2xl text-gray-300 leading-relaxed mb-8 font-light">
@@ -259,22 +272,22 @@
                     </p>
                     
                     <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-6">
-                        <div class="text-center p-6 glass rounded-2xl cursor-hover-trigger hover:bg-white/5 transition-colors">
+                        <div class="text-center p-6 glass rounded-2xl cursor-hover-trigger glass-hover transition-colors">
                             <i data-lucide="brain" class="w-8 h-8 text-cyan-400 mx-auto mb-3"></i>
                             <p class="font-bold text-xl text-white">AI</p>
                             <p class="text-sm text-gray-400">Training</p>
                         </div>
-                        <div class="text-center p-6 glass rounded-2xl cursor-hover-trigger hover:bg-white/5 transition-colors">
+                        <div class="text-center p-6 glass rounded-2xl cursor-hover-trigger glass-hover transition-colors">
                             <i data-lucide="database" class="w-8 h-8 text-cyan-400 mx-auto mb-3"></i>
                             <p class="font-bold text-xl text-white">Data</p>
                             <p class="text-sm text-gray-400">Analysis</p>
                         </div>
-                        <div class="text-center p-6 glass rounded-2xl cursor-hover-trigger hover:bg-white/5 transition-colors">
+                        <div class="text-center p-6 glass rounded-2xl cursor-hover-trigger glass-hover transition-colors">
                             <i data-lucide="trending-up" class="w-8 h-8 text-cyan-400 mx-auto mb-3"></i>
                             <p class="font-bold text-xl text-white">Econ.</p>
                             <p class="text-sm text-gray-400">Economista</p>
                         </div>
-                        <div class="text-center p-6 glass rounded-2xl cursor-hover-trigger hover:bg-white/5 transition-colors">
+                        <div class="text-center p-6 glass rounded-2xl cursor-hover-trigger glass-hover transition-colors">
                             <i data-lucide="headphones" class="w-8 h-8 text-cyan-400 mx-auto mb-3"></i>
                             <p class="font-bold text-xl text-white">CX</p>
                             <p class="text-sm text-gray-400">Support</p>
@@ -286,10 +299,10 @@
     </section>
 
     <!-- Experience Section -->
-    <section id="experience" class="py-32 bg-[#0a0a0a] relative overflow-hidden">
+    <section id="experience" class="py-32 bg-[#050505] relative overflow-hidden">
         <div class="max-w-5xl mx-auto px-6">
             <div class="text-center mb-20 reveal">
-                <h2 class="text-4xl md:text-5xl font-bold mb-4 text-white">Experiencia <span class="text-gradient">Profesional</span></h2>
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 text-white">Experiencia <span class="text-accent">Profesional</span></h2>
                 <p class="text-gray-400">Trayectoria en tecnología, análisis de datos y atención al cliente.</p>
             </div>
 
@@ -305,9 +318,9 @@
                             <p class="text-gray-400 font-medium">Outlier.ai</p>
                             <p class="text-sm text-gray-500">Colombia (Remoto)</p>
                         </div>
-                        <div class="absolute left-0 md:left-1/2 transform -translate-x-1/2 w-4 h-4 bg-cyan-500 rounded-full border-4 border-[#0a0a0a] shadow-lg shadow-cyan-500/50"></div>
+                        <div class="absolute left-0 md:left-1/2 transform -translate-x-1/2 w-4 h-4 bg-cyan-400 rounded-full border-4 border-[#050505] shadow-lg shadow-cyan-400/50"></div>
                         <div class="md:w-5/12 md:pl-12">
-                            <div class="glass p-6 rounded-2xl hover:border-cyan-500/30 transition-all duration-300">
+                            <div class="glass p-6 rounded-2xl glass-hover transition-all duration-300">
                                 <ul class="text-gray-400 space-y-2 text-sm">
                                     <li>• Entrenamiento, evaluación y validación de modelos de IA</li>
                                     <li>• Análisis y revisión de respuestas generadas por modelos LLM</li>
@@ -328,9 +341,9 @@
                             <p class="text-gray-400 font-medium">No Country</p>
                             <p class="text-sm text-gray-500">Argentina (Remoto)</p>
                         </div>
-                        <div class="absolute left-0 md:left-1/2 transform -translate-x-1/2 w-4 h-4 bg-purple-500 rounded-full border-4 border-[#0a0a0a] shadow-lg shadow-purple-500/50"></div>
+                        <div class="absolute left-0 md:left-1/2 transform -translate-x-1/2 w-4 h-4 bg-purple-400 rounded-full border-4 border-[#050505] shadow-lg shadow-purple-400/50"></div>
                         <div class="md:w-5/12 md:pr-12">
-                            <div class="glass p-6 rounded-2xl hover:border-purple-500/30 transition-all duration-300">
+                            <div class="glass p-6 rounded-2xl glass-hover transition-all duration-300">
                                 <ul class="text-gray-400 space-y-2 text-sm">
                                     <li>• Desarrollo de apps móviles en Android con Kotlin y Jetpack Compose</li>
                                     <li>• Proyectos: SkyWonders, MediChild, Histopa</li>
@@ -342,7 +355,7 @@
                     </div>
                 </div>
 
-                <!-- Ecommerce Business Owner -->
+                <!-- Ecommerce -->
                 <div class="relative mb-16 reveal cursor-hover-trigger">
                     <div class="md:flex items-center justify-between">
                         <div class="md:w-5/12 md:text-right mb-4 md:mb-0">
@@ -351,9 +364,9 @@
                             <p class="text-gray-400 font-medium">Facebook Ads / Digital Marketing</p>
                             <p class="text-sm text-gray-500">Colombia</p>
                         </div>
-                        <div class="absolute left-0 md:left-1/2 transform -translate-x-1/2 w-4 h-4 bg-blue-500 rounded-full border-4 border-[#0a0a0a] shadow-lg shadow-blue-500/50"></div>
+                        <div class="absolute left-0 md:left-1/2 transform -translate-x-1/2 w-4 h-4 bg-blue-400 rounded-full border-4 border-[#050505] shadow-lg shadow-blue-400/50"></div>
                         <div class="md:w-5/12 md:pl-12">
-                            <div class="glass p-6 rounded-2xl hover:border-blue-500/30 transition-all duration-300">
+                            <div class="glass p-6 rounded-2xl glass-hover transition-all duration-300">
                                 <ul class="text-gray-400 space-y-2 text-sm">
                                     <li>• Desarrollo de embudos de venta con WordPress y Elementor</li>
                                     <li>• Generación de +1000 leads en nichos educativos</li>
@@ -366,7 +379,7 @@
                 </div>
 
                 <!-- Freelance -->
-                <div class="relative mb-16 reveal cursor-hover-trigger" style="transition-delay: 0.2s;">
+                <div class="relative reveal cursor-hover-trigger" style="transition-delay: 0.2s;">
                     <div class="md:flex items-center justify-between flex-row-reverse">
                         <div class="md:w-5/12 md:text-left mb-4 md:mb-0">
                             <span class="text-cyan-400 font-semibold text-sm tracking-wider uppercase">Feb 2015 - Dic 2019</span>
@@ -374,9 +387,9 @@
                             <p class="text-gray-400 font-medium">Workana</p>
                             <p class="text-sm text-gray-500">Colombia (Remoto)</p>
                         </div>
-                        <div class="absolute left-0 md:left-1/2 transform -translate-x-1/2 w-4 h-4 bg-gray-500 rounded-full border-4 border-[#0a0a0a]"></div>
+                        <div class="absolute left-0 md:left-1/2 transform -translate-x-1/2 w-4 h-4 bg-gray-400 rounded-full border-4 border-[#050505]"></div>
                         <div class="md:w-5/12 md:pr-12">
-                            <div class="glass p-6 rounded-2xl hover:border-gray-500/30 transition-all duration-300">
+                            <div class="glass p-6 rounded-2xl glass-hover transition-all duration-300">
                                 <ul class="text-gray-400 space-y-2 text-sm">
                                     <li>• Atención al cliente vía chat y correo en español e inglés</li>
                                     <li>• Tareas administrativas y traducción de contenido</li>
@@ -386,26 +399,151 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
 
-                <!-- Asesora Comercial -->
-                <div class="relative reveal cursor-hover-trigger" style="transition-delay: 0.4s;">
-                    <div class="md:flex items-center justify-between">
-                        <div class="md:w-5/12 md:text-right mb-4 md:mb-0">
-                            <span class="text-cyan-400 font-semibold text-sm tracking-wider uppercase">Jun 2015 - Ago 2015</span>
-                            <h3 class="text-2xl font-bold text-white mt-2">Asesora Comercial Externa</h3>
-                            <p class="text-gray-400 font-medium">Seguros Bolívar S.A.</p>
-                            <p class="text-sm text-gray-500">Tunja, Colombia</p>
+    <!-- Certifications Section -->
+    <section id="certifications" class="py-32 bg-[#0a0a0a] relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 text-white">Licencias y <span class="text-accent">Certificaciones</span></h2>
+                <p class="text-gray-400">Formación continua en tecnología y datos</p>
+            </div>
+
+            <!-- Data & Analytics -->
+            <div class="mb-12 reveal">
+                <h3 class="text-xl font-bold text-white mb-6 flex items-center text-cyan-400">
+                    <i data-lucide="bar-chart-2" class="w-5 h-5 mr-3"></i>
+                    Data Science & Analytics
+                </h3>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="cert-card p-6 rounded-2xl">
+                        <div class="flex items-start justify-between mb-4">
+                            <div class="cert-logo w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold text-xs">UC</div>
+                            <span class="text-xs font-medium text-cyan-400 bg-cyan-400/10 px-3 py-1 rounded-full">Feb 2026</span>
                         </div>
-                        <div class="absolute left-0 md:left-1/2 transform -translate-x-1/2 w-4 h-4 bg-gray-600 rounded-full border-4 border-[#0a0a0a]"></div>
-                        <div class="md:w-5/12 md:pl-12">
-                            <div class="glass p-6 rounded-2xl hover:border-gray-600/30 transition-all duration-300">
-                                <ul class="text-gray-400 space-y-2 text-sm">
-                                    <li>• Captación y vinculación de clientes para seguros de vida</li>
-                                    <li>• Telemercadeo y agendamiento de reuniones comerciales</li>
-                                    <li>• Asesoría postventa y seguimiento a pólizas</li>
-                                    <li>• Desarrollo de relaciones de confianza y fidelización</li>
-                                </ul>
+                        <h4 class="font-bold text-white mb-1">SQL for Data Science</h4>
+                        <p class="text-sm text-gray-400 mb-2">University of California, Davis</p>
+                        <p class="text-xs text-gray-500">ID: H6HD5AJH7TYC</p>
+                    </div>
+
+                    <div class="cert-card p-6 rounded-2xl">
+                        <div class="flex items-start justify-between mb-4">
+                            <div class="cert-logo w-10 h-10 bg-green-600 rounded-lg flex items-center justify-center text-white font-bold text-xs">MS</div>
+                            <span class="text-xs font-medium text-cyan-400 bg-cyan-400/10 px-3 py-1 rounded-full">Feb 2026</span>
+                        </div>
+                        <h4 class="font-bold text-white mb-1">Data Analysis with Excel</h4>
+                        <p class="text-sm text-gray-400 mb-2">Microsoft</p>
+                        <p class="text-xs text-gray-500">ID: NVJFV45VTXMD</p>
+                    </div>
+
+                    <div class="cert-card p-6 rounded-2xl">
+                        <div class="flex items-start justify-between mb-4">
+                            <div class="cert-logo w-10 h-10 bg-blue-800 rounded-lg flex items-center justify-center text-white font-bold text-xs">C</div>
+                            <span class="text-xs font-medium text-cyan-400 bg-cyan-400/10 px-3 py-1 rounded-full">Oct 2025</span>
+                        </div>
+                        <h4 class="font-bold text-white mb-1">Data Analytics Essentials</h4>
+                        <p class="text-sm text-gray-400 mb-2">Cisco</p>
+                        <p class="text-xs text-gray-500">Vence: Oct 2030</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cloud & Programming -->
+            <div class="mb-12 reveal" style="transition-delay: 0.1s;">
+                <h3 class="text-xl font-bold text-white mb-6 flex items-center text-cyan-400">
+                    <i data-lucide="cloud" class="w-5 h-5 mr-3"></i>
+                    Cloud & Programación
+                </h3>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="cert-card p-6 rounded-2xl">
+                        <div class="flex items-start justify-between mb-4">
+                            <div class="cert-logo w-10 h-10 bg-orange-500 rounded-lg flex items-center justify-center text-white font-bold text-xs">AWS</div>
+                            <span class="text-xs font-medium text-gray-400 bg-white/5 px-3 py-1 rounded-full">Jun 2024</span>
+                        </div>
+                        <h4 class="font-bold text-white mb-1">DevOps on AWS and Project Management</h4>
+                        <p class="text-sm text-gray-400">Amazon Web Services</p>
+                    </div>
+
+                    <div class="cert-card p-6 rounded-2xl">
+                        <div class="flex items-start justify-between mb-4">
+                            <div class="cert-logo w-10 h-10 bg-orange-500 rounded-lg flex items-center justify-center text-white font-bold text-xs">AWS</div>
+                            <span class="text-xs font-medium text-gray-400 bg-white/5 px-3 py-1 rounded-full">Jul 2024</span>
+                        </div>
+                        <h4 class="font-bold text-white mb-1">Automation in the AWS Cloud</h4>
+                        <p class="text-sm text-gray-400">Amazon Web Services</p>
+                    </div>
+
+                    <div class="cert-card p-6 rounded-2xl">
+                        <div class="flex items-start justify-between mb-4">
+                            <div class="cert-logo w-10 h-10 bg-blue-800 rounded-lg flex items-center justify-center text-white font-bold text-xs">C</div>
+                            <span class="text-xs font-medium text-cyan-400 bg-cyan-400/10 px-3 py-1 rounded-full">Oct 2025</span>
+                        </div>
+                        <h4 class="font-bold text-white mb-1">Python Essentials 1</h4>
+                        <p class="text-sm text-gray-400">Cisco</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Marketing & Languages -->
+            <div class="grid md:grid-cols-2 gap-6 reveal" style="transition-delay: 0.2s;">
+                <div>
+                    <h3 class="text-xl font-bold text-white mb-6 flex items-center text-cyan-400">
+                        <i data-lucide="megaphone" class="w-5 h-5 mr-3"></i>
+                        Marketing Digital
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="cert-card p-4 rounded-xl flex justify-between items-center">
+                            <div>
+                                <h4 class="font-bold text-white text-sm">Inbound (Nuevo)</h4>
+                                <p class="text-xs text-gray-400">HubSpot Academy</p>
                             </div>
+                            <span class="text-xs text-cyan-400">Abr 2025</span>
+                        </div>
+                        <div class="cert-card p-4 rounded-xl flex justify-between items-center">
+                            <div>
+                                <h4 class="font-bold text-white text-sm">SEO Optimization</h4>
+                                <p class="text-xs text-gray-400">HubSpot Academy</p>
+                            </div>
+                            <span class="text-xs text-cyan-400">Jun 2025</span>
+                        </div>
+                        <div class="cert-card p-4 rounded-xl flex justify-between items-center">
+                            <div>
+                                <h4 class="font-bold text-white text-sm">Service Hub Software</h4>
+                                <p class="text-xs text-gray-400">HubSpot Academy</p>
+                            </div>
+                            <span class="text-xs text-cyan-400">Abr 2025</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-xl font-bold text-white mb-6 flex items-center text-cyan-400">
+                        <i data-lucide="languages" class="w-5 h-5 mr-3"></i>
+                        Idiomas & Desarrollo
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="cert-card p-4 rounded-xl flex justify-between items-center">
+                            <div>
+                                <h4 class="font-bold text-white text-sm">English for IT 1</h4>
+                                <p class="text-xs text-gray-400">Cisco</p>
+                            </div>
+                            <span class="text-xs text-cyan-400">Mar 2026</span>
+                        </div>
+                        <div class="cert-card p-4 rounded-xl flex justify-between items-center">
+                            <div>
+                                <h4 class="font-bold text-white text-sm">English for Career Development</h4>
+                                <p class="text-xs text-gray-400">University of Pennsylvania</p>
+                            </div>
+                            <span class="text-xs text-gray-400">Ago 2022</span>
+                        </div>
+                        <div class="cert-card p-4 rounded-xl flex justify-between items-center">
+                            <div>
+                                <h4 class="font-bold text-white text-sm">Explore Emerging Tech</h4>
+                                <p class="text-xs text-gray-400">IBM</p>
+                            </div>
+                            <span class="text-xs text-gray-400">Sept 2022</span>
                         </div>
                     </div>
                 </div>
@@ -414,26 +552,25 @@
     </section>
 
     <!-- Education Section -->
-    <section id="education" class="py-32 bg-[#0f0f0f]">
+    <section id="education" class="py-32 bg-[#050505]">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center mb-16 reveal">
-                <h2 class="text-4xl md:text-5xl font-bold mb-4 text-white">Educación y <span class="text-gradient">Certificaciones</span></h2>
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 text-white">Educación <span class="text-accent">Formal</span></h2>
             </div>
 
             <div class="grid md:grid-cols-2 gap-8">
-                <!-- Formal Education -->
                 <div class="glass p-8 rounded-2xl reveal">
                     <h3 class="text-2xl font-bold text-white mb-6 flex items-center">
                         <i data-lucide="graduation-cap" class="w-6 h-6 mr-3 text-cyan-400"></i>
                         Formación Académica
                     </h3>
                     <div class="space-y-6">
-                        <div class="border-l-2 border-cyan-500/30 pl-4">
+                        <div class="border-l-2 border-cyan-400/30 pl-4">
                             <h4 class="font-bold text-white">Especialista en Gerencia de PyMEs</h4>
                             <p class="text-gray-400">Universidad Pedagógica y Tecnológica de Colombia</p>
                             <p class="text-sm text-gray-500">2013</p>
                         </div>
-                        <div class="border-l-2 border-purple-500/30 pl-4">
+                        <div class="border-l-2 border-cyan-400/30 pl-4">
                             <h4 class="font-bold text-white">Economista</h4>
                             <p class="text-gray-400">Universidad Pedagógica y Tecnológica de Colombia</p>
                             <p class="text-sm text-gray-500">2008 - 2013</p>
@@ -441,11 +578,10 @@
                     </div>
                 </div>
 
-                <!-- Diplomas -->
                 <div class="glass p-8 rounded-2xl reveal" style="transition-delay: 0.1s;">
                     <h3 class="text-2xl font-bold text-white mb-6 flex items-center">
-                        <i data-lucide="award" class="w-6 h-6 mr-3 text-purple-400"></i>
-                        Diplomados y Certificaciones
+                        <i data-lucide="code" class="w-6 h-6 mr-3 text-cyan-400"></i>
+                        Diplomados
                     </h3>
                     <div class="space-y-4">
                         <div class="flex justify-between items-center py-2 border-b border-white/5">
@@ -462,26 +598,12 @@
                             </div>
                             <span class="text-xs text-cyan-400">2022</span>
                         </div>
-                        <div class="flex justify-between items-center py-2 border-b border-white/5">
+                        <div class="flex justify-between items-center py-2">
                             <div>
                                 <p class="text-white font-medium">Programación</p>
                                 <p class="text-sm text-gray-400">Universidad de Caldas</p>
                             </div>
                             <span class="text-xs text-cyan-400">2022</span>
-                        </div>
-                        <div class="flex justify-between items-center py-2 border-b border-white/5">
-                            <div>
-                                <p class="text-white font-medium">Data Analysis with Excel</p>
-                                <p class="text-sm text-gray-400">Microsoft</p>
-                            </div>
-                            <span class="text-xs text-cyan-400">2026</span>
-                        </div>
-                        <div class="flex justify-between items-center py-2">
-                            <div>
-                                <p class="text-white font-medium">SQL for Data Science</p>
-                                <p class="text-sm text-gray-400">UC Davis</p>
-                            </div>
-                            <span class="text-xs text-cyan-400">2026</span>
                         </div>
                     </div>
                 </div>
@@ -491,10 +613,10 @@
 
     <!-- Skills Section -->
     <section id="skills" class="py-32 bg-[#0a0a0a] relative overflow-hidden">
-        <div class="absolute inset-0 bg-gradient-to-r from-cyan-500/5 to-purple-500/5"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-cyan-500/5 to-transparent"></div>
         <div class="max-w-7xl mx-auto px-6 relative z-10">
             <div class="text-center mb-16 reveal">
-                <h2 class="text-4xl font-bold mb-4 text-white">Stack <span class="text-gradient">Tecnológico</span></h2>
+                <h2 class="text-4xl font-bold mb-4 text-white">Stack <span class="text-accent">Tecnológico</span></h2>
                 <p class="text-gray-400">Habilidades técnicas y competencias profesionales</p>
             </div>
             
@@ -505,32 +627,31 @@
                         Tecnologías
                     </h3>
                     <div class="flex flex-wrap gap-2">
-                        <span class="skill-tag px-3 py-1 rounded-full text-cyan-400 text-sm">SQL</span>
-                        <span class="skill-tag px-3 py-1 rounded-full text-cyan-400 text-sm">Python</span>
-                        <span class="skill-tag px-3 py-1 rounded-full text-cyan-400 text-sm">Power BI</span>
-                        <span class="skill-tag px-3 py-1 rounded-full text-cyan-400 text-sm">Kotlin</span>
-                        <span class="skill-tag px-3 py-1 rounded-full text-cyan-400 text-sm">Git/GitHub</span>
-                        <span class="skill-tag px-3 py-1 rounded-full text-cyan-400 text-sm">Excel Avanzado</span>
+                        <span class="skill-tag px-3 py-1 rounded-full text-sm">SQL</span>
+                        <span class="skill-tag px-3 py-1 rounded-full text-sm">Python</span>
+                        <span class="skill-tag px-3 py-1 rounded-full text-sm">Power BI</span>
+                        <span class="skill-tag px-3 py-1 rounded-full text-sm">Kotlin</span>
+                        <span class="skill-tag px-3 py-1 rounded-full text-sm">Git/GitHub</span>
+                        <span class="skill-tag px-3 py-1 rounded-full text-sm">Excel Avanzado</span>
                     </div>
                 </div>
 
                 <div class="glass p-6 rounded-2xl reveal" style="transition-delay: 0.1s;">
                     <h3 class="text-xl font-bold text-white mb-4 flex items-center">
-                        <i data-lucide="users" class="w-5 h-5 mr-2 text-purple-400"></i>
+                        <i data-lucide="users" class="w-5 h-5 mr-2 text-cyan-400"></i>
                         Habilidades Blandas
                     </h3>
                     <div class="flex flex-wrap gap-2">
-                        <span class="skill-tag px-3 py-1 rounded-full text-purple-400 text-sm">Pensamiento Crítico</span>
-                        <span class="skill-tag px-3 py-1 rounded-full text-purple-400 text-sm">Atención al Detalle</span>
-                        <span class="skill-tag px-3 py-1 rounded-full text-purple-400 text-sm">Comunicación Efectiva</span>
-                        <span class="skill-tag px-3 py-1 rounded-full text-purple-400 text-sm">Trabajo Autónomo</span>
-                        <span class="skill-tag px-3 py-1 rounded-full text-purple-400 text-sm">Resolución de Problemas</span>
+                        <span class="skill-tag px-3 py-1 rounded-full text-sm">Pensamiento Crítico</span>
+                        <span class="skill-tag px-3 py-1 rounded-full text-sm">Atención al Detalle</span>
+                        <span class="skill-tag px-3 py-1 rounded-full text-sm">Comunicación Efectiva</span>
+                        <span class="skill-tag px-3 py-1 rounded-full text-sm">Trabajo Autónomo</span>
                     </div>
                 </div>
 
                 <div class="glass p-6 rounded-2xl reveal" style="transition-delay: 0.2s;">
                     <h3 class="text-xl font-bold text-white mb-4 flex items-center">
-                        <i data-lucide="languages" class="w-5 h-5 mr-2 text-green-400"></i>
+                        <i data-lucide="languages" class="w-5 h-5 mr-2 text-cyan-400"></i>
                         Idiomas
                     </h3>
                     <div class="space-y-2">
@@ -575,14 +696,14 @@
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="py-32 bg-[#0a0a0a] relative overflow-hidden">
+    <section id="contact" class="py-32 bg-[#050505] relative overflow-hidden">
         <div class="absolute top-0 left-0 w-full h-full overflow-hidden opacity-20">
-            <div class="absolute top-10 left-10 w-64 h-64 bg-cyan-500/30 rounded-full filter blur-3xl"></div>
-            <div class="absolute bottom-10 right-10 w-96 h-96 bg-purple-500/30 rounded-full filter blur-3xl"></div>
+            <div class="absolute top-10 left-10 w-64 h-64 bg-cyan-400/30 rounded-full filter blur-3xl"></div>
+            <div class="absolute bottom-10 right-10 w-96 h-96 bg-purple-400/30 rounded-full filter blur-3xl"></div>
         </div>
 
         <div class="max-w-4xl mx-auto px-6 relative z-10 text-center">
-            <h2 class="text-4xl md:text-6xl font-bold mb-6 text-white reveal">¿Trabajamos <span class="text-gradient">juntos?</span></h2>
+            <h2 class="text-4xl md:text-6xl font-bold mb-6 text-white reveal">¿Trabajamos <span class="text-accent">juntos?</span></h2>
             <p class="text-xl text-gray-400 mb-12 reveal" style="transition-delay: 0.1s;">
                 Estoy disponible para oportunidades remotas en AI Training, Data Analysis, Operations o Customer Support con enfoque analítico.
             </p>
@@ -602,12 +723,12 @@
                 </a>
 
                 <a href="mailto:dianacuta14@gmail.com" 
-                   class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-cyan-500 to-blue-600 p-8 transition-all hover:shadow-2xl hover:shadow-cyan-500/25">
+                   class="group relative overflow-hidden rounded-2xl bg-cyan-400 p-8 transition-all hover:shadow-2xl hover:shadow-cyan-400/25">
                     <div class="relative z-10 flex flex-col items-center">
-                        <i data-lucide="mail" class="w-12 h-12 text-white mb-4"></i>
-                        <h3 class="text-xl font-bold text-white mb-2">Email</h3>
-                        <p class="text-cyan-100">dianacuta14@gmail.com</p>
-                        <span class="mt-4 inline-flex items-center text-white font-medium">
+                        <i data-lucide="mail" class="w-12 h-12 text-black mb-4"></i>
+                        <h3 class="text-xl font-bold text-black mb-2">Email</h3>
+                        <p class="text-gray-800">dianacuta14@gmail.com</p>
+                        <span class="mt-4 inline-flex items-center text-black font-medium">
                             Enviar correo <i data-lucide="arrow-right" class="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
                         </span>
                     </div>
@@ -615,21 +736,18 @@
             </div>
 
             <div class="flex justify-center gap-6 reveal" style="transition-delay: 0.3s;">
-                <a href="https://www.linkedin.com/in/dianacuta/" target="_blank" class="w-14 h-14 glass rounded-full flex items-center justify-center hover:bg-cyan-500 hover:text-black transition-all duration-300">
+                <a href="https://www.linkedin.com/in/dianacuta/" target="_blank" class="w-14 h-14 glass rounded-full flex items-center justify-center hover:bg-cyan-400 hover:text-black transition-all duration-300">
                     <i data-lucide="linkedin" class="w-6 h-6"></i>
                 </a>
-                <a href="https://github.com/dianaq14" target="_blank" class="w-14 h-14 glass rounded-full flex items-center justify-center hover:bg-cyan-500 hover:text-black transition-all duration-300">
+                <a href="https://github.com/dianaq14" target="_blank" class="w-14 h-14 glass rounded-full flex items-center justify-center hover:bg-cyan-400 hover:text-black transition-all duration-300">
                     <i data-lucide="github" class="w-6 h-6"></i>
-                </a>
-                <a href="https://diana-cuta.vercel.app/" target="_blank" class="w-14 h-14 glass rounded-full flex items-center justify-center hover:bg-cyan-500 hover:text-black transition-all duration-300">
-                    <i data-lucide="globe" class="w-6 h-6"></i>
                 </a>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-[#0a0a0a] text-gray-400 py-8 border-t border-white/5">
+    <footer class="bg-[#050505] text-gray-400 py-8 border-t border-white/5">
         <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center">
             <p class="text-sm">© 2024 Diana Marcela Cuta Barrera. AI Trainer & Data Analyst.</p>
             <p class="text-sm mt-2 md:mt-0 flex items-center gap-2">
@@ -656,20 +774,6 @@
             trigger.addEventListener('mouseleave', () => cursor.classList.remove('cursor-hover'));
         });
 
-        // Magnetic button effect
-        const magneticBtns = document.querySelectorAll('.magnetic-btn');
-        magneticBtns.forEach(btn => {
-            btn.addEventListener('mousemove', (e) => {
-                const rect = btn.getBoundingClientRect();
-                const x = e.clientX - rect.left - rect.width / 2;
-                const y = e.clientY - rect.top - rect.height / 2;
-                btn.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px)`;
-            });
-            btn.addEventListener('mouseleave', () => {
-                btn.style.transform = 'translate(0, 0)';
-            });
-        });
-
         // Scroll reveal animation
         const reveals = document.querySelectorAll('.reveal');
         const revealOnScroll = () => {
@@ -685,7 +789,7 @@
         };
 
         window.addEventListener('scroll', revealOnScroll);
-        revealOnScroll(); // Trigger once on load
+        revealOnScroll();
 
         // Navbar scroll effect
         const navbar = document.getElementById('navbar');
@@ -695,10 +799,10 @@
             
             if (currentScroll > 100) {
                 navbar.classList.add('shadow-lg');
-                navbar.style.background = 'rgba(10, 10, 10, 0.95)';
+                navbar.style.background = 'rgba(5, 5, 5, 0.95)';
             } else {
                 navbar.classList.remove('shadow-lg');
-                navbar.style.background = 'rgba(10, 10, 10, 0.8)';
+                navbar.style.background = 'rgba(5, 5, 5, 0.8)';
             }
         });
 
@@ -708,7 +812,7 @@
             menu.classList.toggle('hidden');
         }
 
-        // Smooth scroll for anchor links
+        // Smooth scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
