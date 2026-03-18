@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diana Cuta | Data Analyst & Cloud Enthusiast</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: {
+                            900: '#0a0a0a',
+                            800: '#121212',
+                            700: '#1a1a1a',
+                            600: '#2a2a2a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --primary: #0a0a0a;
+            --accent: #00d4ff;
+            --accent-secondary: #7c3aed;
+            --text-primary: #ffffff;
+            --text-secondary: #a1a1aa;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .grain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 50;
+            opacity: 0.02;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+        
+        .hero-text {
+            font-size: clamp(3rem, 10vw, 8rem);
+            line-height: 0.9;
+            letter-spacing: -0.03em;
+        }
+        
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .magnetic-btn {
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .skill-tag {
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(124, 58, 237, 0.1));
+            border: 1px solid rgba(0, 212, 255, 0.2);
+        }
+        
+        .skill-tag:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px -10px rgba(0, 212, 255, 0.3);
+            border-color: rgba(0, 212, 255, 0.5);
+        }
+        
+        .timeline-line {
+            background: linear-gradient(to bottom, transparent, #00d4ff, transparent);
+        }
+        
+        .project-card {
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            background: linear-gradient(135deg, rgba(26, 26, 26, 0.8), rgba(42, 42, 42, 0.4));
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .project-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(0, 212, 255, 0.3);
+            box-shadow: 0 20px 60px -20px rgba(0, 212, 255, 0.2);
+        }
+        
+        .project-card:hover .project-image {
+            transform: scale(1.05);
+        }
+        
+        .custom-cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #00d4ff;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+            mix-blend-mode: difference;
+        }
+        
+        .cursor-hover {
+            transform: scale(2.5);
+            background: rgba(0, 212, 255, 0.1);
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .text-gradient {
+            background: linear-gradient(135deg, #ffffff 0%, #a1a1aa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .accent-gradient {
+            background: linear-gradient(135deg, #00d4ff 0%, #7c3aed 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* WhatsApp Float Button */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 100;
+            animation: pulse-whatsapp 2s infinite;
+        }
+
+        @keyframes pulse-whatsapp {
+            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+            70% { box-shadow: 0 0 0 20px rgba(37, 211, 102, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+        }
+
+        .whatsapp-float:hover {
+            animation: none;
+            transform: scale(1.1);
+        }
+
+        /* Certificate Cards */
+        .cert-card {
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, rgba(26, 26, 26, 0.9), rgba(42, 42, 42, 0.6));
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .cert-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 60px -20px rgba(0, 212, 255, 0.2);
+            border-color: rgba(0, 212, 255, 0.3);
+        }
+
+        .cert-logo {
+            transition: transform 0.3s ease;
+        }
+
+        .cert-card:hover .cert-logo {
+            transform: scale(1.1);
+        }
+
+        /* Profile image styling */
+        .profile-image {
+            object-position: center 20%;
+            filter: contrast(1.05) saturate(1.1);
+        }
+
+        /* Glass effect */
+        .glass {
+            background: rgba(26, 26, 26, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Glow effects */
+        .glow-cyan {
+            box-shadow: 0 0 60px -20px rgba(0, 212, 255, 0.3);
+        }
+        
+        .glow-purple {
+            box-shadow: 0 0 60px -20px rgba(124, 58, 237, 0.3);
+        }
+
+        /* Navigation */
+        nav {
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Section backgrounds */
+        .bg-dark-900 { background-color: #0a0a0a; }
+        .bg-dark-800 { background-color: #121212; }
+        .bg-dark-700 { background-color: #1a1a1a; }
+    </style>
+</head>
+<body class="antialiased bg-dark-900 text-white">
+    <div class="grain"></div>
+    <div class="custom-cursor hidden md:block" id="cursor"></div>
+
+    <!-- WhatsApp Float Button -->
+    <a href="https://wa.me/573208705752?text=Hola%20Diana,%20vi%20tu%20portfolio%20y%20me%20interesa%20contactarte" 
+       target="_blank" 
+       class="whatsapp-float cursor-hover-trigger bg-green-500 text-white p-4 rounded-full shadow-2xl flex items-center justify-center w-16 h-16 hover:bg-green-600 transition-all duration-300 group">
+        <i data-lucide="message-circle" class="w-8 h-8 fill-current"></i>
+        <span class="absolute right-full mr-4 bg-dark-800 text-white px-4 py-2 rounded-lg text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap pointer-events-none border border-white/10">
+            ¡Hablemos por WhatsApp!
+        </span>
+    </a>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-40 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-2xl font-bold tracking-tighter" style="font-family: 'Playfair Display', serif;">
+                DC<span class="text-cyan-400">.</span>
+            </div>
+            <div class="hidden md:flex space-x-8 text-sm font-medium text-gray-400">
+                <a href="#about" class="hover:text-cyan-400 transition-colors cursor-hover-trigger">Sobre mí</a>
+                <a href="#certifications" class="hover:text-cyan-400 transition-colors cursor-hover-trigger">Certificaciones</a>
+                <a href="#experience" class="hover:text-cyan-400 transition-colors cursor-hover-trigger">Experiencia</a>
+                <a href="#projects" class="hover:text-cyan-400 transition-colors cursor-hover-trigger">Proyectos</a>
+                <a href="#contact" class="hover:text-cyan-400 transition-colors cursor-hover-trigger">Contacto</a>
+            </div>
+            <button class="md:hidden text-white" onclick="toggleMenu()">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden glass absolute w-full">
+            <div class="flex flex-col p-6 space-y-4">
+                <a href="#about" class="text-lg font-medium text-gray-300" onclick="toggleMenu()">Sobre mí</a>
+                <a href="#certifications" class="text-lg font-medium text-gray-300" onclick="toggleMenu()">Certificaciones</a>
+                <a href="#experience" class="text-lg font-medium text-gray-300" onclick="toggleMenu()">Experiencia</a>
+                <a href="#projects" class="text-lg font-medium text-gray-300" onclick="toggleMenu()">Proyectos</a>
+                <a href="#contact" class="text-lg font-medium text-gray-300" onclick="toggleMenu()">Contacto</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen flex items-center justify-center relative overflow-hidden pt-20 bg-dark-900">
+        <div class="absolute inset-0 bg-gradient-to-br from-cyan-500/5 via-purple-500/5 to-blue-500/5 opacity-50"></div>
+        <div class="absolute top-20 right-10 w-72 h-72 bg-cyan-500/20 rounded-full mix-blend-screen filter blur-3xl opacity-30 floating"></div>
+        <div class="absolute bottom-20 left-10 w-72 h-72 bg-purple-500/20 rounded-full mix-blend-screen filter blur-3xl opacity-30 floating" style="animation-delay: 2s;"></div>
+        
+        <div class="max-w-7xl mx-auto px-6 relative z-10 grid md:grid-cols-2 gap-12 items-center">
+            <div class="reveal">
+                <p class="cyan-400 font-medium mb-4 tracking-widest uppercase text-sm text-cyan-400">Data Analyst | Cloud Enthusiast</p>
+                <h1 class="hero-text font-bold text-gradient mb-6">
+                    Diana<br>
+                    <span class="accent-gradient">Cuta</span>
+                </h1>
+                <p class="text-xl text-gray-400 mb-8 leading-relaxed max-w-lg">
+                    Profesional apasionada por el análisis de datos, cloud computing y transformación digital. Especializada en SQL, Python, AWS y Excel.
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="#contact" class="magnetic-btn cursor-hover-trigger inline-flex items-center px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-full font-medium hover:shadow-lg hover:shadow-cyan-500/25 transition-all duration-300">
+                        Conectar
+                        <i data-lucide="arrow-right" class="ml-2 w-4 h-4"></i>
+                    </a>
+                    <a href="#certifications" class="magnetic-btn cursor-hover-trigger inline-flex items-center px-8 py-4 border border-gray-600 text-gray-300 rounded-full font-medium hover:border-cyan-400 hover:text-cyan-400 transition-all duration-300">
+                        Ver certificaciones
+                    </a>
+                </div>
+            </div>
+            <div class="relative reveal" style="transition-delay: 0.2s;">
+                <div class="relative w-full aspect-square max-w-md mx-auto">
+                    <div class="absolute inset-0 bg-gradient-to-br from-cyan-500 to-purple-600 rounded-3xl rotate-6 opacity-30 blur-sm"></div>
+                    <div class="absolute inset-0 bg-gradient-to-br from-purple-600 to-cyan-500 rounded-3xl -rotate-3 opacity-20 blur-sm"></div>
+                    <img src="index/Imagenes/dc.jpeg" 
+                         alt="Diana Cuta" 
+                         class="profile-image relative w-full h-full object-cover rounded-3xl shadow-2xl cursor-hover-trigger border border-white/10">
+                    <div class="absolute -bottom-6 -right-6 glass p-6 rounded-2xl shadow-2xl cursor-hover-trigger">
+                        <div class="flex items-center gap-3">
+                            <div class="w-12 h-12 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-full flex items-center justify-center">
+                                <i data-lucide="award" class="w-6 h-6 text-white"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-400">Certificaciones</p>
+                                <p class="font-bold text-white text-xl">15+</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-32 bg-dark-800 relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-12 gap-12">
+                <div class="md:col-span-4 reveal">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-6 text-white">Sobre<br><span class="accent-gradient">mí</span></h2>
+                    <div class="w-20 h-1 bg-gradient-to-r from-cyan-500 to-purple-600 mb-8"></div>
+                </div>
+                <div class="md:col-span-8 reveal" style="transition-delay: 0.2s;">
+                    <p class="text-2xl text-gray-300 leading-relaxed mb-8 font-light">
+                        Analista de datos con formación en <span class="font-semibold text-white">cloud computing</span> y <span class="font-semibold text-white">marketing digital</span>. Combino habilidades técnicas en SQL, Python y AWS con competencias en inbound marketing y SEO.
+                    </p>
+                    <p class="text-lg text-gray-400 leading-relaxed mb-12">
+                        Certificada por instituciones como Cisco, Microsoft, AWS, UC Davis y University of Pennsylvania. Apasionada por la resolución de problemas, la toma de decisiones basada en datos y el aprendizaje continuo de tecnologías emergentes.
+                    </p>
+                    
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                        <div class="text-center p-6 bg-dark-700 rounded-2xl cursor-hover-trigger hover:bg-dark-600 transition-colors border border-white/5">
+                            <i data-lucide="database" class="w-8 h-8 text-cyan-400 mx-auto mb-3"></i>
+                            <p class="font-bold text-2xl text-white">SQL</p>
+                            <p class="text-sm text-gray-400">Data Science</p>
+                        </div>
+                        <div class="text-center p-6 bg-dark-700 rounded-2xl cursor-hover-trigger hover:bg-dark-600 transition-colors border border-white/5">
+                            <i data-lucide="cloud" class="w-8 h-8 text-cyan-400 mx-auto mb-3"></i>
+                            <p class="font-bold text-2xl text-white">AWS</p>
+                            <p class="text-sm text-gray-400">Cloud</p>
+                        </div>
+                        <div class="text-center p-6 bg-dark-700 rounded-2xl cursor-hover-trigger hover:bg-dark-600 transition-colors border border-white/5">
+                            <i data-lucide="code" class="w-8 h-8 text-cyan-400 mx-auto mb-3"></i>
+                            <p class="font-bold text-2xl text-white">Python</p>
+                            <p class="text-sm text-gray-400">Analytics</p>
+                        </div>
+                        <div class="text-center p-6 bg-dark-700 rounded-2xl cursor-hover-trigger hover:bg-dark-600 transition-colors border border-white/5">
+                            <i data-lucide="trending-up" class="w-8 h-8 text-cyan-400 mx-auto mb-3"></i>
+                            <p class="font-bold text-2xl text-white">Excel</p>
+                            <p class="text-sm text-gray-400">Data Analysis</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certifications Section -->
+    <section id="certifications" class="py-32 bg-dark-900 relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-full opacity-30 pointer-events-none">
+            <div class="absolute top-20 right-20 w-96 h-96 bg-cyan-500/10 rounded-full filter blur-3xl"></div>
+            <div class="absolute bottom-20 left-20 w-96 h-96 bg-purple-500/10 rounded-full filter blur-3xl"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 text-white">Licencias y <span class="accent-gradient">Certificaciones</span></h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">Formación continua en tecnología, datos, cloud computing y desarrollo profesional.</p>
+            </div>
+
+            <!-- Data & Analytics -->
+            <div class="mb-12 reveal">
+                <h3 class="text-2xl font-bold text-white mb-6 flex items-center">
+                    <span class="w-10 h-10 bg-cyan-500/10 rounded-lg flex items-center justify-center mr-3 border border-cyan-500/20">
+                        <i data-lucide="bar-chart-2" class="w-5 h-5 text-cyan-400"></i>
+                    </span>
+                    Data Science & Analytics
+                </h3>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- SQL -->
+                    <div class="cert-card p-6 rounded-2xl cursor-hover-trigger">
+                        <div class="flex items-start justify-between mb-4">
+                            <div class="cert-logo w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold text-xs">
+                                UC Davis
+                            </div>
+                            <span class="text-xs font-medium text-cyan-400 bg-cyan-500/10 px-3 py-1 rounded-full border border-cyan-500/20">Feb 2026</span>
+                        </div>
+                        <h4 class="font-bold text-white mb-1">SQL for Data Science</h4>
+                        <p class="text-sm text-gray-400 mb-3">University of California, Davis</p>
+                        <div class="flex flex-wrap gap-2 mb-3">
+                            <span class="text-xs bg-dark-600 text-gray-300 px-2 py-1 rounded border border-white/5">SQL</span>
+                            <span class="text-xs bg-dark-600 text-gray-300 px-2 py-1 rounded border border-white/5">Análisis de datos</span>
+                        </div>
+                        <p class="text-xs text-gray-500">ID: H6HD5AJH7TYC</p>
+                    </div>
+
+                    <!-- Excel -->
+                    <div class="cert-card p-6 rounded-2xl cursor-hover-trigger">
+                        <div class="flex items-start justify-between mb-4">
+                            <div class="cert-logo w-12 h-12 bg-green-600 rounded-lg flex items-center justify-center text-white font-bold text-xs">
+                                MS
+                            </div>
+                            <span class="text-xs font-medium text-cyan-400 bg-cyan-500/10 px-3 py-1 rounded-full border border-cyan-500/20">Feb 2026</span>
+                        </div>
+                        <h4 class="font-bold text-white mb-1">Data Analysis with Excel</h4>
+                        <p class="text-sm text-gray-400 mb-3">Microsoft</p>
+                        <div class="flex flex-wrap gap-2 mb-3">
+                            <span class="text-xs bg-dark-600 text-gray-300 px-2 py-1 rounded border border-white/5">Excel</span>
+                            <span class="text-xs bg-dark-600 text-gray-300 px-2 py-1 rounded border border-white/5">Data Analysis</span>
+                        </div>
+                        <p class="text-xs text-gray-500">ID: NVJFV45VTXMD</p>
+                    </div>
+
+                    <!-- Data Analytics Essentials -->
+                    <div class="cert-card p-6 rounded-2xl cursor-hover-trigger">
+                        <div class="flex items-start justify-between mb-4">
+                            <div class="cert-logo w-12 h-12 bg-blue-800 rounded-lg flex items-center justify-center text-white font-bold text-xs">
+                                Cisco
+                            </div>
+                            <span class="text-xs font-medium text-cyan-400 bg-cyan-500/10 px-3 py-1 rounded-full border border-cyan-500/20">Oct 2025</span>
+                        </div>
+                        <h4 class="font-bold text-white mb-1">Data Analytics Essentials</h4>
+                        <p class="text-sm text-gray-400 mb-3">Cisco</p>
+                        <div class="flex flex-wrap gap-2 mb-3">
+                            <span class="text-xs bg-dark-600 text-gray-300 px-2 py-1 rounded border border-white/5">Analytics</span>
+                        </div>
+                        <p class="text-xs text-gray-500">Vence: Oct 2030</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cloud & DevOps -->
+            <div class="mb-12 reveal" style="transition-delay: 0.1s;">
+                <h3 class="text-2xl font-bold text-white mb-6 flex items-center">
+                    <span class="w-10 h-10 bg-orange-500/10 rounded-lg flex items-center justify-center mr-3 border border-orange-500/20">
+                        <i data-lucide="cloud" class="w-5 h-5 text-orange-400"></i>
+                    </span>
+                    Cloud Computing (AWS)
+                </h3>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="cert-card p-6 rounded-2xl cursor-hover-trigger">
+                        <div class="flex items-start justify-between mb-4">
+                            <div class="cert-logo w-12 h-12 bg-orange-500 rounded-lg flex items-center justify-center text-white font-bold text-xs">
+                                AWS
+                            </div>
+                            <span class="text-xs font-medium text-gray-400 bg-dark-600 px-3 py-1 rounded-full border border-white/5">Jun 2024</span>
+                        </div>
+                        <h4 class="font-bold text-white mb-1">DevOps on AWS and Project Management</h4>
+                        <p class="text-sm text-gray-400 mb-3">Amazon Web Services</p>
+                        <p class="text-xs text-gray-500">ID: AU6BE7DYK3RY</p>
+                    </div>
+
+                    <div class="cert-card p-6 rounded-2xl cursor-hover-trigger">
+                        <div class="flex items-start justify-between mb-4">
+                            <div class="cert-logo w-12 h-12 bg-orange-500 rounded-lg flex items-center justify-center text-white font-bold text-xs">
+                                AWS
+                            </div>
+                            <span class="text-xs font-medium text-gray-400 bg-dark-600 px-3 py-1 rounded-full border border-white/5">Jul 2024</span>
+                        </div>
+                        <h4 class="font-bold text-white mb-1">Automation in the AWS Cloud</h4>
+                        <p class="text-sm text-gray-400 mb-3">Amazon Web Services</p>
+                        <p class="text-xs text-gray-500">ID: MSMBTRGPHK5L</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Programming -->
+            <div class="mb-12 reveal" style="transition-delay: 0.2s;">
+                <h3 class="text-2xl font-bold text-white mb-6 flex items-center">
+                    <span class="w-10 h-10 bg-purple-500/10 rounded-lg flex items-center justify-center mr-3 border border-purple-500/20">
+                        <i data-lucide="code-2" class="w-5 h-5 text-purple-400"></i>
+                    </span>
+                    Programación
+                </h3>
+                <div class="cert-card p-6 rounded-2xl cursor-hover-trigger max-w-md">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="cert-logo w-12 h-12 bg-blue-800 rounded-lg flex items-center justify-center text-white font-bold text-xs">
+                            Cisco
+                        </div>
+                        <span class="text-xs font-medium text-cyan-400 bg-cyan-500/10 px-3 py-1 rounded-full border border-cyan-500/20">Oct 2025</span>
+                    </div>
+                    <h4 class="font-bold text-white mb-1">Python Essentials 1</h4>
+                    <p class="text-sm text-gray-400 mb-3">Cisco</p>
+                    <p class="text-xs text-gray-500">Vence: Ene 2030 | ID: 394665b4...</p>
+                </div>
+            </div>
+
+            <!-- Marketing -->
+            <div class="mb-12 reveal" style="transition-delay: 0.3s;">
+                <h3 class="text-2xl font-bold text-white mb-6 flex items-center">
+                    <span class="w-10 h-10 bg-red-500/10 rounded-lg flex items-center justify-center mr-3 border border-red-500/20">
+                        <i data-lucide="megaphone" class="w-5 h-5 text-red-400"></i>
+                    </span>
+                    Marketing Digital (HubSpot)
+                </h3>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="cert-card p-6 rounded-2xl cursor-hover-trigger">
+                        <div class="flex items-start justify-between mb-4">
+                            <div class="cert-logo w-12 h-12 bg-orange-600 rounded-lg flex items-center justify-center text-white font-bold text-xs">
+                                HS
+                            </div>
+                            <span class="text-xs font-medium text-cyan-400 bg-cyan-500/10 px-3 py-1 rounded-full border border-cyan-500/20">Abr 2025</span>
+                        </div>
+                        <h4 class="font-bold text-white mb-1">Inbound (Nuevo)</h4>
+                        <p class="text-sm text-gray-400 mb-3">HubSpot Academy</p>
+                        <p class="text-xs text-gray-500">Vence: May 2027</p>
+                    </div>
+
+                    <div class="cert-card p-6 rounded-2xl cursor-hover-trigger">
+                        <div class="flex items-start justify-between mb-4">
+                            <div class="cert-logo w-12 h-12 bg-orange-600 rounded-lg flex items-center justify-center text-white font-bold text-xs">
+                                HS
+                            </div>
+                            <span class="text-xs font-medium text-cyan-400 bg-cyan-500/10 px-3 py-1 rounded-full border border-cyan-500/20">Jun 2025</span>
+                        </div>
+                        <h4 class="font-bold text-white mb-1">SEO Optimization</h4>
+                        <p class="text-sm text-gray-400 mb-3">HubSpot Academy</p>
+                        <p class="text-xs text-gray-500">Vence: Jul 2026</p>
+                    </div>
+
+                    <div class="cert-card p-6 rounded-2xl cursor-hover-trigger">
+                        <div class="flex items-start justify-between mb-4">
+                            <div class="cert-logo w-12 h-12 bg-orange-600 rounded-lg flex items-center justify-center text-white font-bold text-xs">
+                                HS
+                            </div>
+                            <span class="text-xs font-medium text-cyan-400 bg-cyan-500/10 px-3 py-1 rounded-full border border-cyan-500/20">Abr 2025</span>
+                        </div>
+                        <h4 class="font-bold text-white mb-1">Service Hub Software</h4>
+                        <p class="text-sm text-gray-400 mb-3">HubSpot Academy</p>
+                        <div class="flex flex-wrap gap-2 mb-3">
+                            <span class="text-xs bg-dark-600 text-gray-300 px-2 py-1 rounded border border-white/5">Customer Service</span>
+                        </div>
+                        <p class="text-xs text-gray-500">Vence: May 2026</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Languages & Professional Development -->
+            <div class="reveal" style="transition-delay: 0.4s;">
+                <h3 class="text-2xl font-bold text-white mb-6 flex items-center">
+                    <span class="w-10 h-10 bg-green-500/10 rounded-lg flex items-center justify-center mr-3 border border-green-500/20">
+                        <i data-lucide="languages" class="w-5 h-5 text-green-400"></i>
+                    </span>
+                    Idiomas y Desarrollo Profesional
+                </h3>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="cert-card p-6 rounded-2xl cursor-hover-trigger">
+                        <div class="flex items-start justify-between mb-4">
+                            <div class="cert-logo w-12 h-12 bg-blue-800 rounded-lg flex items-center justify-center text-white font-bold text-xs">
+                                Cisco
+                            </div>
+                            <span class="text-xs font-medium text-cyan-400 bg-cyan-500/10 px-3 py-1 rounded-full border border-cyan-500/20">Mar 2026</span>
+                        </div>
+                        <h4 class="font-bold text-white mb-1">English for IT 1</h4>
+                        <p class="text-sm text-gray-400">Cisco</p>
+                    </div>
+
+                    <div class="cert-card p-6 rounded-2xl cursor-hover-trigger">
+                        <div class="flex items-start justify-between mb-4">
+                            <div class="cert-logo w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold text-xs">
+                                UPenn
+                            </div>
+                            <span class="text-xs font-medium text-gray-400 bg-dark-600 px-3 py-1 rounded-full border border-white/5">Ago 2022</span>
+                        </div>
+                        <h4 class="font-bold text-white mb-1">English for Career Development</h4>
+                        <p class="text-sm text-gray-400">University of Pennsylvania</p>
+                    </div>
+
+                    <div class="cert-card p-6 rounded-2xl cursor-hover-trigger">
+                        <div class="flex items-start justify-between mb-4">
+                            <div class="cert-logo w-12 h-12 bg-teal-500 rounded-lg flex items-center justify-center text-white font-bold text-xs">
+                                EF
+                            </div>
+                            <span class="text-xs font-medium text-gray-400 bg-dark-600 px-3 py-1 rounded-full border border-white/5">Jun 2023</span>
+                        </div>
+                        <h4 class="font-bold text-white mb-1">EF SET English Certificate</h4>
+                        <p class="text-sm text-gray-400">EF SET</p>
+                    </div>
+
+                    <div class="cert-card p-6 rounded-2xl cursor-hover-trigger">
+                        <div class="flex items-start justify-between mb-4">
+                            <div class="cert-logo w-12 h-12 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold text-xs">
+                                UC Irvine
+                            </div>
+                            <span class="text-xs font-medium text-gray-400 bg-dark-600 px-3 py-1 rounded-full border border-white/5">Jul 2024</span>
+                        </div>
+                        <h4 class="font-bold text-white mb-1 text-sm">Resolución de problemas y toma de decisiones</h4>
+                        <p class="text-sm text-gray-400">UC Irvine</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Certs -->
+            <div class="mt-12 grid md:grid-cols-2 gap-6 reveal" style="transition-delay: 0.5s;">
+                <div class="cert-card p-6 rounded-2xl cursor-hover-trigger flex items-center gap-4">
+                    <div class="cert-logo w-16 h-16 bg-gray-700 rounded-lg flex items-center justify-center text-white font-bold text-xs border border-white/10">
+                        No Country
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-white mb-1">Certificado experiencia</h4>
+                        <p class="text-sm text-gray-400">No Country • Nov 2023</p>
+                    </div>
+                </div>
+
+                <div class="cert-card p-6 rounded-2xl cursor-hover-trigger flex items-center gap-4">
+                    <div class="cert-logo w-16 h-16 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold text-xs">
+                        IBM
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-white mb-1">Explore Emerging Tech</h4>
+                        <p class="text-sm text-gray-400">IBM • Sept 2022</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="py-20 bg-dark-800 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-cyan-500/5 to-purple-500/5"></div>
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-4xl font-bold mb-4 text-white">Stack <span class="accent-gradient">Tecnológico</span></h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">Herramientas y tecnologías que utilizo para transformar datos en insights accionables.</p>
+            </div>
+            
+            <div class="flex flex-wrap justify-center gap-4 reveal" style="transition-delay: 0.2s;">
+                <span class="skill-tag cursor-hover-trigger px-6 py-3 rounded-full text-cyan-400 cursor-pointer">SQL</span>
+                <span class="skill-tag cursor-hover-trigger px-6 py-3 rounded-full text-cyan-400 cursor-pointer">Python</span>
+                <span class="skill-tag cursor-hover-trigger px-6 py-3 rounded-full text-cyan-400 cursor-pointer">Microsoft Excel</span>
+                <span class="skill-tag cursor-hover-trigger px-6 py-3 rounded-full text-cyan-400 cursor-pointer">AWS Cloud</span>
+                <span class="skill-tag cursor-hover-trigger px-6 py-3 rounded-full text-cyan-400 cursor-pointer">Data Analytics</span>
+                <span class="skill-tag cursor-hover-trigger px-6 py-3 rounded-full text-cyan-400 cursor-pointer">DevOps</span>
+                <span class="skill-tag cursor-hover-trigger px-6 py-3 rounded-full text-cyan-400 cursor-pointer">SEO</span>
+                <span class="skill-tag cursor-hover-trigger px-6 py-3 rounded-full text-cyan-400 cursor-pointer">Inbound Marketing</span>
+                <span class="skill-tag cursor-hover-trigger px-6 py-3 rounded-full text-cyan-400 cursor-pointer">Customer Service</span>
+                <span class="skill-tag cursor-hover-trigger px-6 py-3 rounded-full text-cyan-400 cursor-pointer">English (Proficient)</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="py-32 bg-dark-900 relative overflow-hidden">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="text-center mb-20 reveal">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 text-white">Experiencia <span class="accent-gradient">Profesional</span></h2>
+                <p class="text-gray-400">Trayectoria enfocada en análisis de datos, tecnología cloud y atención al cliente.</p>
+            </div>
+
+            <div class="relative">
+                <div class="absolute left-0 md:left-1/2 transform md:-translate-x-1/2 h-full w-px timeline-line"></div>
+                
+                <!-- Experience Item 1 -->
+                <div class="relative mb-16 reveal cursor-hover-trigger">
+                    <div class="md:flex items-center justify-between">
+                        <div class="md:w-5/12 md:text-right mb-4 md:mb-0">
+                            <span class="text-cyan-400 font-semibold text-sm tracking-wider uppercase">2023 - Presente</span>
+                            <h3 class="text-2xl font-bold text-white mt-2">Data Analyst</h3>
+                            <p class="text-gray-400 font-medium">No Country / Proyectos Freelance</p>
+                        </div>
+                        <div class="absolute left-0 md:left-1/2 transform -translate-x-1/2 w-4 h-4 bg-cyan-500 rounded-full border-4 border-dark-900 shadow-lg shadow-cyan-500/50"></div>
+                        <div class="md:w-5/12 md:pl-12">
+                            <div class="glass p-6 rounded-2xl hover:border-cyan-500/30 transition-all duration-300">
+                                <p class="text-gray-400 leading-relaxed">
+                                    Análisis de datos utilizando SQL, Python y Excel. Implementación de soluciones cloud en AWS. Certificación obtenida en Nov 2023.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Experience Item 2 -->
+                <div class="relative mb-16 reveal cursor-hover-trigger" style="transition-delay: 0.2s;">
+                    <div class="md:flex items-center justify-between flex-row-reverse">
+                        <div class="md:w-5/12 md:text-left mb-4 md:mb-0">
+                            <span class="text-cyan-400 font-semibold text-sm tracking-wider uppercase">2022 - 2023</span>
+                            <h3 class="text-2xl font-bold text-white mt-2">Especialista en Marketing Digital</h3>
+                            <p class="text-gray-400 font-medium">Proyectos Independientes</p>
+                        </div>
+                        <div class="absolute left-0 md:left-1/2 transform -translate-x-1/2 w-4 h-4 bg-purple-500 rounded-full border-4 border-dark-900 shadow-lg shadow-purple-500/50"></div>
+                        <div class="md:w-5/12 md:pr-12">
+                            <div class="glass p-6 rounded-2xl hover:border-purple-500/30 transition-all duration-300">
+                                <p class="text-gray-400 leading-relaxed">
+                                    Gestión de estrategias SEO e Inbound Marketing. Optimización de motores de búsqueda y campañas de adquisición de clientes.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Experience Item 3 -->
+                <div class="relative reveal cursor-hover-trigger" style="transition-delay: 0.4s;">
+                    <div class="md:flex items-center justify-between">
+                        <div class="md:w-5/12 md:text-right mb-4 md:mb-0">
+                            <span class="text-cyan-400 font-semibold text-sm tracking-wider uppercase">2022</span>
+                            <h3 class="text-2xl font-bold text-white mt-2">Formación Continua</h3>
+                            <p class="text-gray-400 font-medium">IBM / UC Davis / UPenn</p>
+                        </div>
+                        <div class="absolute left-0 md:left-1/2 transform -translate-x-1/2 w-4 h-4 bg-gray-500 rounded-full border-4 border-dark-900"></div>
+                        <div class="md:w-5/12 md:pl-12">
+                            <div class="glass p-6 rounded-2xl hover:border-gray-500/30 transition-all duration-300">
+                                <p class="text-gray-400 leading-relaxed">
+                                    Inicio de especialización en tecnologías emergentes (IBM), inglés profesional (UPenn) y fundamentos de data science.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-32 bg-dark-800">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 reveal">
+                <div>
+                    <h2 class="text-4xl md:text-5xl font-bold mb-4 text-white">Proyectos <span class="accent-gradient">Destacados</span></h2>
+                    <p class="text-gray-400 max-w-xl">Implementaciones prácticas utilizando SQL, Python, AWS y herramientas de análisis.</p>
+                </div>
+                <a href="https://github.com/dianaq14" target="_blank" class="mt-6 md:mt-0 inline-flex items-center text-cyan-400 font-medium hover:text-cyan-300 cursor-hover-trigger transition-colors">
+                    Ver GitHub
+                    <i data-lucide="github" class="ml-2 w-5 h-5"></i>
+                </a>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project 1 -->
+                <div class="project-card group cursor-hover-trigger reveal rounded-2xl overflow-hidden">
+                    <div class="relative overflow-hidden aspect-video">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&auto=format&fit=crop&q=80" 
+                             alt="Data Analysis Project" 
+                             class="project-image w-full h-full object-cover transition-transform duration-700">
+                        <div class="absolute inset-0 bg-dark-900/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <a href="https://github.com/dianaq14" target="_blank" class="text-white font-medium px-6 py-3 border-2 border-cyan-400 rounded-full hover:bg-cyan-400 hover:text-dark-900 transition-colors">
+                                Ver en GitHub
+                            </a>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex gap-2 mb-3">
+                            <span class="text-xs bg-cyan-500/10 text-cyan-400 px-2 py-1 rounded border border-cyan-500/20">SQL</span>
+                            <span class="text-xs bg-purple-500/10 text-purple-400 px-2 py-1 rounded border border-purple-500/20">Python</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">Análisis de Datos con SQL</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed">Proyecto de UC Davis aplicando técnicas de SQL para extracción de insights empresariales.</p>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="project-card group cursor-hover-trigger reveal rounded-2xl overflow-hidden" style="transition-delay: 0.1s;">
+                    <div class="relative overflow-hidden aspect-video">
+                        <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&auto=format&fit=crop&q=80" 
+                             alt="AWS Cloud Project" 
+                             class="project-image w-full h-full object-cover transition-transform duration-700">
+                        <div class="absolute inset-0 bg-dark-900/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <a href="https://github.com/dianaq14" target="_blank" class="text-white font-medium px-6 py-3 border-2 border-cyan-400 rounded-full hover:bg-cyan-400 hover:text-dark-900 transition-colors">
+                                Ver en GitHub
+                            </a>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex gap-2 mb-3">
+                            <span class="text-xs bg-orange-500/10 text-orange-400 px-2 py-1 rounded border border-orange-500/20">AWS</span>
+                            <span class="text-xs bg-purple-500/10 text-purple-400 px-2 py-1 rounded border border-purple-500/20">DevOps</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">Automatización AWS</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed">Implementación de pipelines CI/CD y automatización de infraestructura cloud.</p>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="project-card group cursor-hover-trigger reveal rounded-2xl overflow-hidden" style="transition-delay: 0.2s;">
+                    <div class="relative overflow-hidden aspect-video">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&auto=format&fit=crop&q=80" 
+                             alt="Excel Analysis" 
+                             class="project-image w-full h-full object-cover transition-transform duration-700">
+                        <div class="absolute inset-0 bg-dark-900/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <a href="https://github.com/dianaq14" target="_blank" class="text-white font-medium px-6 py-3 border-2 border-cyan-400 rounded-full hover:bg-cyan-400 hover:text-dark-900 transition-colors">
+                                Ver en GitHub
+                            </a>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex gap-2 mb-3">
+                            <span class="text-xs bg-green-500/10 text-green-400 px-2 py-1 rounded border border-green-500/20">Excel</span>
+                            <span class="text-xs bg-gray-500/10 text-gray-400 px-2 py-1 rounded border border-gray-500/20">Data Viz</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">Dashboards Excel Avanzado</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed">Visualización de datos y análisis financiero utilizando Microsoft Excel.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-32 bg-dark-900 relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-full overflow-hidden opacity-20">
+            <div class="absolute top-10 left-10 w-64 h-64 bg-cyan-500/30 rounded-full filter blur-3xl"></div>
+            <div class="absolute bottom-10 right-10 w-96 h-96 bg-purple-500/30 rounded-full filter blur-3xl"></div>
+        </div>
+
+        <div class="max-w-4xl mx-auto px-6 relative z-10 text-center">
+            <h2 class="text-4xl md:text-6xl font-bold mb-6 text-white reveal">¿Trabajamos <span class="accent-gradient">juntos?</span></h2>
+            <p class="text-xl text-gray-400 mb-12 reveal" style="transition-delay: 0.1s;">
+                Estoy buscando oportunidades en análisis de datos, cloud computing y tecnología. ¡Conectemos!
+            </p>
+
+            <div class="flex flex-col md:flex-row gap-6 justify-center items-center mb-16 reveal" style="transition-delay: 0.2s;">
+                <a href="mailto:dianacuta14@gmail.com" class="magnetic-btn cursor-hover-trigger inline-flex items-center px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-full font-bold hover:shadow-lg hover:shadow-cyan-500/25 transition-all duration-300">
+                    <i data-lucide="mail" class="mr-2 w-5 h-5"></i>
+                    dianacuta14@gmail.com
+                </a>
+                <a href="https://wa.me/573208705752?text=Hola%20Diana,%20vi%20tu%20portfolio" target="_blank" class="magnetic-btn cursor-hover-trigger inline-flex items-center px-8 py-4 bg-green-500 text-white rounded-full font-bold hover:bg-green-600 transition-colors duration-300">
+                    <i data-lucide="message-circle" class="mr-2 w-5 h-5 fill-current"></i>
+                    WhatsApp
+                </a>
+                <a href="https://github.com/dianaq14" target="_blank" class="magnetic-btn cursor-hover-trigger inline-flex items-center px-8 py-4 border border-gray-600 text-gray-300 rounded-full font-medium hover:border-cyan-400 hover:text-cyan-400 transition-all duration-300">
+                    <i data-lucide="github" class="mr-2 w-5 h-5"></i>
+                    GitHub
+                </a>
+            </div>
+
+            <div class="flex justify-center gap-8 reveal" style="transition-delay: 0.3s;">
+                <a href="https://www.linkedin.com/in/dianacuta/" target="_blank" class="cursor-hover-trigger w-12 h-12 glass rounded-full flex items-center justify-center hover:bg-cyan-500 hover:text-dark-900 transition-all duration-300">
+                    <i data-lucide="linkedin" class="w-5 h-5"></i>
+                </a>
+                <a href="https://github.com/dianaq14" target="_blank" class="cursor-hover-trigger w-12 h-12 glass rounded-full flex items-center justify-center hover:bg-cyan-500 hover:text-dark-900 transition-all duration-300">
+                    <i data-lucide="github" class="w-5 h-5"></i>
+                </a>
+                <a href="https://wa.me/573208705752" target="_blank" class="cursor-hover-trigger w-12 h-12 glass rounded-full flex items-center justify-center hover:bg-green-500 hover:text-white transition-all duration-300">
+                    <i data-lucide="message-circle" class="w-5 h-5"></i>
+                </a>
+                <a href="mailto:dianacuta14@gmail.com" class="cursor-hover-trigger w-12 h-12 glass rounded-full flex items-center justify-center hover:bg-cyan-500 hover:text-dark-900 transition-all duration-300">
+                    <i data-lucide="mail" class="w-5 h-5"></i>
+                </a>
+            </div>
+
+            <div class="mt-16 p-8 glass rounded-2xl border border-white/10 reveal" style="transition-delay: 0.4s;">
+                <h3 class="text-2xl font-bold mb-4 text-white">¿Por qué contratarme?</h3>
+                <div class="grid md:grid-cols-3 gap-6 text-left">
+                    <div class="flex items-start gap-3">
+                        <i data-lucide="check-circle" class="w-6 h-6 text-cyan-400 flex-shrink-0 mt-1"></i>
+                        <div>
+                            <h4 class="font-semibold mb-1 text-white">Formación Actualizada</h4>
+                            <p class="text-sm text-gray-400">Certificaciones recientes en SQL, Python, AWS y Excel (2024-2026)</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <i data-lucide="check-circle" class="w-6 h-6 text-cyan-400 flex-shrink-0 mt-1"></i>
+                        <div>
+                            <h4 class="font-semibold mb-1 text-white">Versatilidad</h4>
+                            <p class="text-sm text-gray-400">Combinación única de habilidades técnicas (Data/Cloud) y de negocio (Marketing/SEO)</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <i data-lucide="check-circle" class="w-6 h-6 text-cyan-400 flex-shrink-0 mt-1"></i>
+                        <div>
+                            <h4 class="font-semibold mb-1 text-white">Inglés Profesional</h4>
+                            <p class="text-sm text-gray-400">Certificada por University of Pennsylvania y Cisco para entornos internacionales</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark-900 text-gray-400 py-8 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center">
+            <p class="text-sm">© 2024 Diana Cuta. Data Analyst & Cloud Enthusiast.</p>
+            <p class="text-sm mt-2 md:mt-0 flex items-center gap-2">
+                Hecho con <i data-lucide="heart" class="w-4 h-4 text-cyan-400 fill-current"></i> y mucho café
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Custom cursor
+        const cursor = document.getElementById('cursor');
+        const hoverTriggers = document.querySelectorAll('.cursor-hover-trigger');
+
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX - 10 + 'px';
+            cursor.style.top = e.clientY - 10 + 'px';
+        });
+
+        hoverTriggers.forEach(trigger => {
+            trigger.addEventListener('mouseenter', () => cursor.classList.add('cursor-hover'));
+            trigger.addEventListener('mouseleave', () => cursor.classList.remove('cursor-hover'));
+        });
+
+        // Magnetic button effect
+        const magneticBtns = document.querySelectorAll('.magnetic-btn');
+        magneticBtns.forEach(btn => {
+            btn.addEventListener('mousemove', (e) => {
+                const rect = btn.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                btn.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px)`;
+            });
+            btn.addEventListener('mouseleave', () => {
+                btn.style.transform = 'translate(0, 0)';
+            });
+        });
+
+        // Scroll reveal animation
+        const reveals = document.querySelectorAll('.reveal');
+        const revealOnScroll = () => {
+            reveals.forEach(element => {
+                const windowHeight = window.innerHeight;
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < windowHeight - elementVisible) {
+                    element.classList.add('active');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll(); // Trigger once on load
+
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        let lastScroll = 0;
+        
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 100) {
+                navbar.classList.add('shadow-lg');
+                navbar.style.background = 'rgba(10, 10, 10, 0.95)';
+            } else {
+                navbar.classList.remove('shadow-lg');
+                navbar.style.background = 'rgba(10, 10, 10, 0.8)';
+            }
+            
+            lastScroll = currentScroll;
+        });
+
+        // Mobile menu toggle
+        function toggleMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
